@@ -1,4 +1,5 @@
 import tensorflow_hub as tfhub
+import tensorflow_text
 import tensorflow as tf
 
 class ContextEncoder:
