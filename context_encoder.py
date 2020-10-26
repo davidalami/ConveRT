@@ -1,5 +1,5 @@
 import tensorflow_hub as tfhub
-import tensorflow_text
+import tensorflow_text # NOQA: it is used when importing the model
 import tensorflow as tf
 
 class ContextEncoder:
