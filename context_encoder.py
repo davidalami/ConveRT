@@ -5,7 +5,7 @@ class ContextEncoder:
     def __init__(self):
 
         self.sess = tf.Session()
-        self.module = tfhub.Module("https://github.com/davidalami/ConveRT/tf_model/model.tar.gz")
+        self.module = tfhub.Module("https://github.com/davidalami/ConveRT/releases/download/1.0/model.tar.gz")
 
         self.text_placeholder = tf.placeholder(dtype=tf.string, shape=[None])
         self.extra_text_placeholder = tf.placeholder(dtype=tf.string, shape=[None])
