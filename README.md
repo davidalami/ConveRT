@@ -44,4 +44,4 @@ multicontext_encoder.encode_multicontext(dialogue)
 ```
 # Notes
 This project is a continuation of the abandoned https://github.com/PolyAI-LDN/polyai-models,
-it is distributed under the same licence. 
+it is distributed under the same license. 
