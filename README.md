@@ -17,22 +17,65 @@ pip install conversational-sentence-encoder
 ```
 
 # Usage examples
+The entry point of the package is SentenceEncoder class:
 ```
 from conversational_sentence_encoder.vectorizers import SentenceEncoder
+```
+To run the examples you will also need to 
+```
+pip install scikit-learn
+```
+## Text Classification / Intent Recognition / Sentiment Classification
+The ConveRT model encodes sentences to a meaningful semantic space. Sentences can be compared for semantic similarity in this space, and NLP classifiers can be trained on top of these encodings
+```
+from sklearn import preprocessing
+from sklearn.neighbors import KNeighborsClassifier
 
+# texts
+X = ["hello ? can i speak to a actual person ?",
+"i ll wait for a human to talk to me",
+"i d prefer to be speaking with a human .",
+"ok i m not talking to a real person so",
+"ok . this is an automated message . i need to speak with a real human",
+"hello . i m so sorry but i d like to return . can you send me instructions . thank you",
+"im sorry i m not sure you understand what i need but i need to return a package i got from you guys",
+"how can i return my order ? no one has gotten back to me on here or emails i sent !",
+"i can t wait that long . even if the order arrives i will send it back !",
+"i have a question what is your return policy ? i ordered the wrong size"]
+
+# labels
+y = ["SPEAK_HUMAN"]*5+["RETURN"]*5
 
 # initialize the ConveRT dual-encoder model
 sentence_encoder = SentenceEncoder(multiple_contexts=False)
 
-dialogue = ["Hello, how are you?", "Hello, I am fine, thanks", "Glad to hear that!"]
+# output 1024 dimensional vectors, giving a representation for each sentence. 
+X_encoded = sentence_encoder.encode_sentences(X)
 
-# outputs 1024 dimensional vectors, giving a representation for each sentence. 
-sentence_encoder.encode_sentences(dialogue)
+# encode labels
+le = preprocessing.LabelEncoder()
+y_encoded = le.fit_transform(y)
 
-# outputs 512 dimensional vectors, giving the context representation of each input. These are trained to have a high cosine-similarity with the response representations of good responses
+# fit the KNN classifier on the toy dataset
+clf = KNeighborsClassifier(n_neighbors=3).fit(X_encoded, y_encoded)
+
+
+test = sentence_encoder.encode_sentences(["are you all bots???", 
+                                          "i will send this trash back!"])
+
+prediction = clf.predict(test)
+
+# this will give the intents ['SPEAK_HUMAN' 'RETURN']
+print(le.inverse_transform(prediction))
+```
+## Response Selection (Neural Ranking)
+```
+# outputs 512 dimensional vectors, giving the context representation of each input. 
+#These are trained to have a high cosine-similarity with the response representations of good responses
 sentence_encoder.encode_contexts(dialogue)
 
-# outputs 512 dimensional vectors, giving the response representation of each input. These are trained to have a high cosine-similarity with the context representations of good corresponding contexts
+# outputs 512 dimensional vectors, giving the response representation of each input. 
+#These are trained to have a high cosine-similarity with the context representations of good corresponding contexts
 sentence_encoder.encode_responses(dialogue)
 
 
