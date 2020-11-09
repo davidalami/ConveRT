@@ -25,13 +25,13 @@ class SentenceEncoder:
         self.multiple_contexts = multiple_contexts
         self.batch_size = batch_size
 
-        self.sess = tf.Session()
+        self.sess = tf.compat.v1.Session()
 
-        self.text_placeholder = tf.placeholder(dtype=tf.string, shape=[None])
+        self.text_placeholder = tf.compat.v1.placeholder(dtype=tf.string, shape=[None])
 
         if self.multiple_contexts:
             self.module = tfhub.Module(multicontext_model)
-            self.extra_text_placeholder = tf.placeholder(dtype=tf.string, shape=[None])
+            self.extra_text_placeholder = tf.compat.v1.placeholder(dtype=tf.string, shape=[None])
             self.context_encoding_tensor = self.module(
                 {
                     'context': self.text_placeholder,
@@ -46,8 +46,8 @@ class SentenceEncoder:
             self.response_encoding_tensor = self.module(self.text_placeholder, signature="encode_response")
             self.encoding_tensor = self.module(self.text_placeholder)
 
-        self.sess.run(tf.tables_initializer())
-        self.sess.run(tf.global_variables_initializer())
+        self.sess.run(tf.compat.v1.tables_initializer())
+        self.sess.run(tf.compat.v1.global_variables_initializer())
 
     def encode_multicontext(self, dialogue_history):
         """Encode the whole dialogue to the encoding space to 512-dimensional vectors"""
