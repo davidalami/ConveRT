@@ -31,6 +31,7 @@ class SentenceEncoder:
 
         self.text_placeholder = tf.compat.v1.placeholder(dtype=tf.string, shape=[None])
 
+
         if self.multiple_contexts:
             self.module = tfhub.Module(multicontext_model)
             self.extra_text_placeholder = tf.compat.v1.placeholder(dtype=tf.string, shape=[None])
@@ -45,9 +46,9 @@ class SentenceEncoder:
         else:
             self.module = tfhub.Module(nocontext_model)
             self.context_encoding_tensor = self.module(self.text_placeholder, signature="encode_context")
-            self.response_encoding_tensor = self.module(self.text_placeholder, signature="encode_response")
             self.encoding_tensor = self.module(self.text_placeholder)
 
+        self.response_encoding_tensor = self.module(self.text_placeholder, signature="encode_response")
         self.sess.run(tf.compat.v1.tables_initializer())
         self.sess.run(tf.compat.v1.global_variables_initializer())
 
