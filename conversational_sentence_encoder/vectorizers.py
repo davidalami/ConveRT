@@ -7,6 +7,8 @@ from tqdm import tqdm
 from .definitions import nocontext_model
 from .definitions import multicontext_model
 
+# setting the logging verbosity level to errors-only
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 class SentenceEncoder:
     """A client for running inference with a ConveRT encoder model.
