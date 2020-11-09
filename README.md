@@ -69,21 +69,69 @@ prediction = clf.predict(test)
 print(le.inverse_transform(prediction))
 ```
 ## Response Selection (Neural Ranking)
+ConveRT is trained on the response ranking task, so it can be used to find good responses to a given conversational context.
+
+This section demonstrates how to rank responses, by computing cosine similarities of context and response representations in the shared response ranking space. Response representations for a fixed candidate list are first pre-computed. When a new context is provided, it is encoded and then compared to the pre-computed response representations.
 ```
+import numpy as np
+
+# initialize the ConveRT dual-encoder model
+sentence_encoder = SentenceEncoder(multiple_contexts=False)
+
+questions = np.array(["where is my order?", 
+                      "what is the population of London?",
+                      "will you pay me for collaboration?"])
+
 # outputs 512 dimensional vectors, giving the context representation of each input. 
 #These are trained to have a high cosine-similarity with the response representations of good responses
-sentence_encoder.encode_contexts(dialogue)
+questions_encoded = sentence_encoder.encode_contexts(questions)
+
+
+responses = np.array(["we expect you to work for free",
+                      "there are a lot of people",
+                      "its on your way"])
 
 # outputs 512 dimensional vectors, giving the response representation of each input. 
 #These are trained to have a high cosine-similarity with the context representations of good corresponding contexts
-sentence_encoder.encode_responses(dialogue)
+responses_encoded = sentence_encoder.encode_responses(responses)
 
+# computing pairwise similarities as a dot product
+similarity_matrix = questions_encoded.dot(responses_encoded.T)
+
+# indices of best answers to given questions
+best_idx = np.argmax(similarity_matrix, axis=1)
+
+# will output answers in the right order
+# ['its on your way', 'there are a lot of people', 'we expect you to work for free']
+print(np.array(responses)[best_idx])
+```
+## Multi-context response ranking/similarity/classification
+This model takes extra dialogue history into account allowing to create smart conversational agents
+```
+import numpy as np
+from conversational_sentence_encoder.vectorizers import SentenceEncoder
 
 # initialize the multi-context ConveRT model, that uses extra contexts from the conversational history to refine the context representations
 multicontext_encoder = SentenceEncoder(multiple_contexts=True)
 
+dialogue = np.array(["hello", "hey", "how are you?"])
+
+responses = np.array(["where do you live?", "i am fine. you?", "i am glad to see you!"])
+
 # outputs 512 dimensional vectors, giving the whole dialogue representation
-multicontext_encoder.encode_multicontext(dialogue)
+dialogue_encoded = multicontext_encoder.encode_multicontext(dialogue)
+
+# encode response candidates using the same model
+responses_encoded = multicontext_encoder.encode_responses(responses)
+
+# get the degree of response fit to the existing dialogue
+similarities = dialogue_encoded.dot(responses_encoded.T)
+
+# find the best response
+best_idx = np.argmax(similarities)
+
+# will output "i am fine. you?"
+print(responses[best_idx])
 ```
 # Notes
 This project is a continuation of the abandoned https://github.com/PolyAI-LDN/polyai-models,
