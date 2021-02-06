@@ -12,7 +12,7 @@ with open("requirements.txt", "r") as fh:
 
 setuptools.setup(
     name="conversational-sentence-encoder",
-    version="0.0.3",
+    version="0.0.4",
     author="David Alami",
     author_email="davidalami@gmail.com",
     description="Dual sentence encoder package",
