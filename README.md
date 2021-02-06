@@ -1,4 +1,8 @@
-# Conversational Sentence Encoder
+# Conversational Sentence Encoder 
+[![GitHub license](https://img.shields.io/github/license/davidalami/ConveRT)](https://github.com/davidalami/ConveRT/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/davidalami/ConveRT)](https://github.com/davidalami/ConveRT/issues)
+[![GitHub forks](https://img.shields.io/github/forks/davidalami/ConveRT)](https://github.com/davidalami/ConveRT/network)
+[![GitHub stars](https://img.shields.io/github/stars/davidalami/ConveRT)](https://github.com/davidalami/ConveRT/stargazers)
 
 This project features the ConveRT dual-encoder model, using subword representations 
 and lighter-weight more efficient transformer-style blocks to encode text, 
