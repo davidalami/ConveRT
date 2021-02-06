@@ -25,7 +25,7 @@ To run the examples you will also need to
 ```
 pip install scikit-learn
 ```
-## Text Classification / Intent Recognition / Sentiment Classification
+## Text Classification / Intent Recognition / Sentiment Classification [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidalami/ConveRT/blob/main/examples/text_classification.ipynb)
 The ConveRT model encodes sentences to a meaningful semantic space. Sentences can be compared for semantic similarity in this space, and NLP classifiers can be trained on top of these encodings
 ```
 from sklearn import preprocessing
@@ -68,7 +68,7 @@ prediction = clf.predict(test)
 # this will give the intents ['SPEAK_HUMAN' 'RETURN']
 print(le.inverse_transform(prediction))
 ```
-## Response Selection (Neural Ranking)
+## Response Selection (Neural Ranking) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidalami/ConveRT/blob/main/examples/response_selection.ipynb)
 ConveRT is trained on the response ranking task, so it can be used to find good responses to a given conversational context.
 
 This section demonstrates how to rank responses, by computing cosine similarities of context and response representations in the shared response ranking space. Response representations for a fixed candidate list are first pre-computed. When a new context is provided, it is encoded and then compared to the pre-computed response representations.
@@ -105,7 +105,7 @@ best_idx = np.argmax(similarity_matrix, axis=1)
 # ['its on your way', 'there are a lot of people', 'we expect you to work for free']
 print(np.array(responses)[best_idx])
 ```
-## Multi-context response ranking/similarity/classification
+## Multi-context response ranking/similarity/classification [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/davidalami/ConveRT/blob/main/examples/multi_context.ipynb)
 This model takes extra dialogue history into account allowing to create smart conversational agents
 ```
 import numpy as np
