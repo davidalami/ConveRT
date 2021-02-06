@@ -12,7 +12,7 @@ with open("requirements.txt", "r") as fh:
 
 setuptools.setup(
     name="conversational-sentence-encoder",
-    version="0.0.2",
+    version="0.0.3",
     author="David Alami",
     author_email="davidalami@gmail.com",
     description="Dual sentence encoder package",
@@ -26,5 +26,5 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='==3.6',
 )
