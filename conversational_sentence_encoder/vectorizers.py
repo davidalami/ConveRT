@@ -7,6 +7,9 @@ from tqdm import tqdm
 from .definitions import nocontext_model
 from .definitions import multicontext_model
 
+# The following settings allow the code and TF1 model to run in TF2
+tf.compat.v1.disable_eager_execution()
+
 # setting the logging verbosity level to errors-only
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
