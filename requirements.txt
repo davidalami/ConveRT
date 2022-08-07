@@ -1,6 +1,5 @@
-tensorflow==1.14.0
-tensorflow_hub==0.6.0
-tensorflow_text==0.1.0
-tf_sentencepiece==0.1.83
-numpy==1.16.4
-tqdm
+tensorflow==2.8.0
+tensorflow_hub==0.12.0
+tensorflow_text==2.8.2
+tf_sentencepiece==0.1.90
+tqdm==4.64.0
