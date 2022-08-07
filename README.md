@@ -15,7 +15,7 @@ The extra contexts are the previous messages in the dialogue
 (typically at most 10) prior to the immediate context.
 
 # Installation 
-Just pip install the package (works for python 3.6.* and 3.7.*) and you are ready to go!
+Just pip install the package (works for python>=3.7) and you are ready to go!
 ```
 pip install conversational-sentence-encoder
 ```
