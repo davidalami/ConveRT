@@ -22,7 +22,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires= requirements,
     classifiers=[
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
     ],
